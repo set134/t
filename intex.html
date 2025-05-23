@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportswear - Ropa Deportiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #000;
+            font-weight: bold;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn-primary {
+            background-color: #000;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background-color: #333;
+        }
+
+        .btn-secondary {
+            background-color: #f5f5f5;
+            color: #000;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e5e5e5;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect width="1920" height="1080" fill="%23333"/><text x="960" y="540" text-anchor="middle" fill="white" font-size="48">HERO IMAGE</text></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            position: relative;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: scale(1.02);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem;
+        }
+
+        .category-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-category {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #000;
+            color: white;
+            border-color: #000;
+        }
+
+        /* Cart */
+        .cart-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cart-items {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-left: none;
+            border-right: none;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .cart-summary {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: fit-content;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-top: 1px solid #e5e5e5;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #000;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 0.75rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .auth-switch a {
+            color: #000;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* User Menu */
+        .user-menu {
+            position: relative;
+        }
+
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            min-width: 200px;
+            z-index: 100;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        .user-info {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .user-info p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .user-info .user-name {
+            font-weight: 500;
+        }
+
+        .user-info .user-email {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .user-menu-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .user-menu-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .user-menu-item.logout {
+            border-top: 1px solid #e5e5e5;
+            color: #c33;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f5f5f5;
+            border-top: 1px solid #e5e5e5;
+            padding: 2rem 0;
+            text-align: center;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .bg-gray {
+            background-color: #f5f5f5;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+
+        .mt-4 {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo" onclick="showPage('home')">SPORTSWEAR</div>
+            
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')" class="nav-link active">Inicio</a></li>
+                <li><a href="#" onclick="showPage('men')" class="nav-link">Hombres</a></li>
+                <li><a href="#" onclick="showPage('women')" class="nav-link">Mujeres</a></li>
+            </ul>
+
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="nav-actions">
+                <button class="btn" onclick="showPage('cart')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </button>
+                <div class="user-menu">
+                    <button class="btn" onclick="toggleUserMenu()" id="userBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="user-info" id="userInfo" style="display: none;">
+                            <p class="user-name" id="userName"></p>
+                            <p class="user-email" id="userEmail"></p>
+                        </div>
+                        <div class="user-menu-item" onclick="showPage('profile')">Mi Perfil</div>
+                        <div class="user-menu-item" onclick="showPage('orders')">Mis Pedidos</div>
+                        <div class="user-menu-item logout" onclick="logout()">Cerrar Sesión</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+        <!-- Home Page -->
+        <div id="homePage" class="page">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>JUST DO IT</h1>
+                    <p>Descubre la nueva colección de ropa deportiva diseñada para superar tus límites</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="showPage('men')">Comprar Hombres</button>
+                        <button class="btn btn-primary" onclick="showPage('women')">Comprar Mujeres</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">CATEGORÍAS DESTACADAS</h2>
+                    <div class="categories-grid">
+                        <div class="category-card" onclick="showPage('men')">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 800'><rect width='600' height='800' fill='%23666'/><text x='300' y='400' text-anchor='middle' fill='white' font-size='24'>HOMBRES</text></svg>" alt="Hombres">
+                            <div class="category-overlay">
+                                <h3>HOMBRES</h3>
+                                <button class="btn btn-secondary">Comprar Ahora →</button>
+                            </div>
+                        </div>
+                        <div class="category-card" onclick="showPage('women')">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 800'><rect width='600' height='800' fill='%23999'/><text x='300' y='400' text-anchor='middle' fill='white' font-size='24'>MUJERES</text></svg>" alt="Mujeres">
+                            <div class="category-overlay">
+                                <h3>MUJERES</h3>
+                                <button class="btn btn-secondary">Comprar Ahora →</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Products -->
+            <section class="section bg-gray">
+                <div class="container">
+                    <h2 class="section-title">PRODUCTOS DESTACADOS</h2>
+                    <div class="products-grid">
+                        <div class="product-card" onclick="addToCart(1, 'Producto Deportivo 1', 129900)">
+                            <div class="product-image">Producto 1</div>
+                            <div class="product-info">
+                                <h3>Producto Deportivo 1</h3>
+                                <p class="product-category">Ropa Deportiva</p>
+                                <p class="product-price">$129.900</p>
+                            </div>
+                        </div>
+                        <div class="product-card" onclick="addToCart(2, 'Producto Deportivo 2', 149900)">
+                            <div class="product-image">Producto 2</div>
+                            <div class="product-info">
+                                <h3>Producto Deportivo 2</h3>
+                                <p class="product-category">Ropa Deportiva</p>
+                                <p class="product-price">$149.900</p>
+                            </div>
+                        </div>
+                        <div class="product-card" onclick="addToCart(3, 'Producto Deportivo 3', 179900)">
+                            <div class="product-image">Producto 3</div>
+                            <div class="product-info">
+                                <h3>Producto Deportivo 3</h3>
+                                <p class="product-category">Ropa Deportiva</p>
+                                <p class="product-price">$179.900</p>
+                            </div>
+                        </div>
+                        <div class="product-card" onclick="addToCart(4, 'Producto Deportivo 4', 199900)">
+                            <div class="product-image">Producto 4</div>
+                            <div class="product-info">
+                                <h3>Producto Deportivo 4</h3>
+                                <p class="product-category">Ropa Deportiva</p>
+                                <p class="product-price">$199.900</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Men Page -->
+        <div id="menPage" class="page hidden">
+            <section class="section">
+                <div class="container">
+                    <div class="mb-4">
+                        <h1 class="section-title">HOMBRES</h1>
+                        <p class="text-center">Descubre nuestra colección para hombres</p>
+                    </div>
+
+                    <div class="filters">
+                        <button class="filter-btn active" data-category="all" onclick="filterProducts('men', 'all')">Todos</button>
+                        <button class="filter-btn" data-category="Camisetas" onclick="filterProducts('men', 'Camisetas')">Camisetas</button>
+                        <button class="filter-btn" data-category="Shorts" onclick="filterProducts('men', 'Shorts')">Shorts</button>
+                        <button class="filter-btn" data-category="Sudaderas" onclick="filterProducts('men', 'Sudaderas')">Sudaderas</button>
+                        <button class="filter-btn" data-category="Chaquetas" onclick="filterProducts('men', 'Chaquetas')">Chaquetas</button>
+                        <button class="filter-btn" data-category="Pantalones" onclick="filterProducts('men', 'Pantalones')">Pantalones</button>
+                        <button class="filter-btn" data-category="Calzado" onclick="filterProducts('men', 'Calzado')">Calzado</button>
+                        <button class="filter-btn" data-category="Accesorios" onclick="filterProducts('men', 'Accesorios')">Accesorios</button>
+                    </div>
+
+                    <div class="products-grid" id="menProducts">
+                        <!-- Products will be loaded here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Women Page -->
+        <div id="womenPage" class="page hidden">
+            <section class="section">
+                <div class="container">
+                    <div class="mb-4">
+                        <h1 class="section-title">MUJERES</h1>
+                        <p class="text-center">Descubre nuestra colección para mujeres</p>
+                    </div>
+
+                    <div class="filters">
+                        <button class="filter-btn active" data-category="all" onclick="filterProducts('women', 'all')">Todos</button>
+                        <button class="filter-btn" data-category="Tops" onclick="filterProducts('women', 'Tops')">Tops</button>
+                        <button class="filter-btn" data-category="Leggings" onclick="filterProducts('women', 'Leggings')">Leggings</button>
+                        <button class="filter-btn" data-category="Camisetas" onclick="filterProducts('women', 'Camisetas')">Camisetas</button>
+                        <button class="filter-btn" data-category="Shorts" onclick="filterProducts('women', 'Shorts')">Shorts</button>
+                        <button class="filter-btn" data-category="Chaquetas" onclick="filterProducts('women', 'Chaquetas')">Chaquetas</button>
+                        <button class="filter-btn" data-category="Calzado" onclick="filterProducts('women', 'Calzado')">Calzado</button>
+                        <button class="filter-btn" data-category="Accesorios" onclick="filterProducts('women', 'Accesorios')">Accesorios</button>
+                    </div>
+
+                    <div class="products-grid" id="womenProducts">
+                        <!-- Products will be loaded here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Cart Page -->
+        <div id="cartPage" class="page hidden">
+            <section class="section">
+                <div class="container">
+                    <h1 class="section-title">Carrito de Compra</h1>
+                    
+                    <div id="emptyCart" class="text-center" style="display: none;">
+                        <h2>Tu carrito está vacío</h2>
+                        <p>Parece que aún no has añadido productos a tu carrito</p>
+                        <button class="btn btn-primary mt-4" onclick="showPage('home')">Continuar Comprando</button>
+                    </div>
+
+                    <div id="cartContent" class="cart-grid">
+                        <div class="cart-items">
+                            <h2>Productos</h2>
+                            <div id="cartItemsList">
+                                <!-- Cart items will be loaded here -->
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="cart-summary">
+                                <h2>Resumen</h2>
+                                <div class="summary-row">
+                                    <span>Subtotal</span>
+                                    <span id="subtotal">$0</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Envío</span>
+                                    <span id="shipping">$12.000</span>
+                                </div>
+                                <div class="summary-row summary-total">
+                                    <span>Total</span>
+                                    <span id="total">$0</span>
+                                </div>
+                            </div>
+
+                            <div class="cart-summary mt-4">
+                                <h2>Datos de Envío</h2>
+                                <form id="checkoutForm">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="firstName">Nombre</label>
+                                            <input type="text" id="firstName" placeholder="Tu nombre" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName">Apellido</label>
+                                            <input type="text" id="lastName" placeholder="Tu apellido" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" placeholder="tu@email.com" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Teléfono</label>
+                                        <input type="tel" id="phone" placeholder="Tu teléfono" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Dirección</label>
+                                        <textarea id="address" placeholder="Tu dirección completa" required></textarea>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="city">Ciudad</label>
+                                            <input type="text" id="city" placeholder="Ciudad" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="postalCode">Código Postal</label>
+                                            <input type="text" id="postalCode" placeholder="Código postal" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" style="width: 100%;">Finalizar Compra</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Sportswear. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="authTitle">Iniciar Sesión</h2>
+                <button class="close-btn" onclick="closeAuthModal()">&times;</button>
+            </div>
+            
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="tu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" placeholder="Tu contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Iniciar Sesión</button>
+                <div class="auth-switch">
+                    ¿No tienes una cuenta? <a onclick="switchToRegister()">Regístrate</a>
+                </div>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" style="display: none;">
+                <div class="form-group">
+                    <label for="registerName">Nombre completo</label>
+                    <input type="text" id="registerName" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" placeholder="tu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña</label>
+                    <input type="password" id="registerPassword" placeholder="Tu contraseña" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar contraseña</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirma tu contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Crear Cuenta</button>
+                <div class="auth-switch">
+                    ¿Ya tienes una cuenta? <a onclick="switchToLogin()">Inicia sesión</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentUser = null;
+        let cart = [];
+        let currentPage = 'home';
+        let currentMenFilter = 'all';
+        let currentWomenFilter = 'all';
+
+        // Products data
+        const menProducts = [
+            { id: 1, name: "Camiseta Dri-FIT", category: "Camisetas", price: 89900 },
+            { id: 2, name: "Shorts Running", category: "Shorts", price: 79900 },
+            { id: 3, name: "Sudadera Tech Fleece", category: "Sudaderas", price: 219900 },
+            { id: 4, name: "Zapatillas Running", category: "Calzado", price: 349900 },
+            { id: 5, name: "Chaqueta Windrunner", category: "Chaquetas", price: 249900 },
+            { id: 6, name: "Pantalón Entrenamiento", category: "Pantalones", price: 159900 },
+            { id: 7, name: "Calcetines Elite", category: "Accesorios", price: 39900 },
+            { id: 8, name: "Gorra Dri-FIT", category: "Accesorios", price: 69900 },
+            { id: 9, name: "Camiseta Básica", category: "Camisetas", price: 59900 },
+            { id: 10, name: "Shorts Deportivos", category: "Shorts", price: 69900 },
+            { id: 11, name: "Chaqueta Deportiva", category: "Chaquetas", price: 189900 },
+            { id: 12, name: "Pantalón Jogger", category: "Pantalones", price: 129900 }
+        ];
+
+        const womenProducts = [
+            { id: 101, name: "Top Deportivo Pro", category: "Tops", price: 99900 },
+            { id: 102, name: "Leggings One", category: "Leggings", price: 129900 },
+            { id: 103, name: "Camiseta Yoga", category: "Camisetas", price: 89900 },
+            { id: 104, name: "Zapatillas Fitness", category: "Calzado", price: 329900 },
+            { id: 105, name: "Shorts Running", category: "Shorts", price: 79900 },
+            { id: 106, name: "Chaqueta Ligera", category: "Chaquetas", price: 199900 },
+            { id: 107, name: "Calcetines Pack x3", category: "Accesorios", price: 49900 },
+            { id: 108, name: "Bolsa Gym", category: "Accesorios", price: 119900 },
+            { id: 109, name: "Shorts Deportivos", category: "Shorts", price: 69900 },
+            { id: 110, name: "Chaqueta Térmica", category: "Chaquetas", price: 229900 },
+            { id: 111, name: "Top Básico", category: "Tops", price: 79900 },
+            { id: 112, name: "Leggings Estampados", category: "Leggings", price: 149900 }
+        ];
+
+        // Navigation
+        function showPage(page) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            
+            // Show selected page
+            currentPage = page;
+            switch(page) {
+                case 'home':
+                    document.getElementById('homePage').classList.remove('hidden');
+                    document.querySelector('[onclick="showPage(\'home\')"]').classList.add('active');
+                    break;
+                case 'men':
+                    document.getElementById('menPage').classList.remove('hidden');
+                    document.querySelector('[onclick="showPage(\'men\')"]').classList.add('active');
+                    loadProducts('men', currentMenFilter);
+                    break;
+                case 'women':
+                    document.getElementById('womenPage').classList.remove('hidden');
+                    document.querySelector('[onclick="showPage(\'women\')"]').classList.add('active');
+                    loadProducts('women', currentWomenFilter);
+                    break;
+                case 'cart':
+                    document.getElementById('cartPage').classList.remove('hidden');
+                    loadCart();
+                    break;
+            }
+        }
+
+        // Filter products
+        function filterProducts(category, filter) {
+            // Update active filter button
+            const filterButtons = document.querySelectorAll(`#${category}Page .filter-btn`);
+            filterButtons.forEach(btn => {
+                if (btn.dataset.category === filter) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Update current filter
+            if (category === 'men') {
+                currentMenFilter = filter;
+            } else {
+                currentWomenFilter = filter;
+            }
+
+            // Load filtered products
+            loadProducts(category, filter);
+        }
+
+        // Load products
+        function loadProducts(category, filter = 'all') {
+            const products = category === 'men' ? menProducts : womenProducts;
+            const container = document.getElementById(category + 'Products');
+            
+            // Filter products
+            const filteredProducts = filter === 'all' 
+                ? products 
+                : products.filter(product => product.category === filter);
+            
+            container.innerHTML = filteredProducts.map(product => `
+                <div class="product-card">
+                    <div class="product-image">${product.name}</div>
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p class="product-category">${product.category}</p>
+                        <p class="product-price">$${product.price.toLocaleString()}</p>
+                        <button class="btn btn-primary" onclick="addToCart(${product.id}, '${product.name}', ${product.price})" style="width: 100%; margin-top: 0.5rem;">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Show message if no products found
+            if (filteredProducts.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                        <h3>No se encontraron productos en esta categoría</h3>
+                        <button class="btn btn-primary mt-4" onclick="filterProducts('${category}', 'all')">Ver todos los productos</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Cart functions
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            alert('Producto añadido al carrito');
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            loadCart();
+        }
+
+        function updateQuantity(id, newQuantity) {
+            if (newQuantity < 1) return;
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity = newQuantity;
+                loadCart();
+            }
+        }
+
+        function loadCart() {
+            const cartItemsList = document.getElementById('cartItemsList');
+            const emptyCart = document.getElementById('emptyCart');
+            const cartContent = document.getElementById('cartContent');
+
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                cartContent.style.display = 'none';
+                return;
+            }
+
+            emptyCart.style.display = 'none';
+            cartContent.style.display = 'grid';
+
+            cartItemsList.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-image">${item.name}</div>
+                    <div class="cart-item-info">
+                        <h3>${item.name}</h3>
+                        <p>ID: ${item.id}</p>
+                        <div class="cart-item-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                            <div class="quantity">${item.quantity}</div>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                            <span style="margin-left: auto; font-weight: bold;">$${(item.price * item.quantity).toLocaleString()}</span>
+                            <button class="btn" onclick="removeFromCart(${item.id})" style="color: #c33; margin-left: 1rem;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3,6 5,6 21,6"></polyline>
+                                    <path d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update totals
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const shipping = subtotal > 200000 ? 0 : 12000;
+            const total = subtotal + shipping;
+
+            document.getElementById('subtotal').textContent = '$' + subtotal.toLocaleString();
+            document.getElementById('shipping').textContent = shipping === 0 ? 'Gratis' : '$' + shipping.toLocaleString();
+            document.getElementById('total').textContent = '$' + total.toLocaleString();
+        }
+
+        // Auth functions
+        function toggleUserMenu() {
+            if (!currentUser) {
+                showAuthModal();
+                return;
+            }
+            
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function showAuthModal() {
+            document.getElementById('authModal').classList.add('active');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        function switchToRegister() {
+            document.getElementById('authTitle').textContent = 'Crear Cuenta';
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function switchToLogin() {
+            document.getElementById('authTitle').textContent = 'Iniciar Sesión';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function login(email, password) {
+            if (!email || !password) {
+                showError('Por favor completa todos los campos');
+                return;
+            }
+
+            // Simulate successful login
+            currentUser = {
+                name: email.split('@')[0],
+                email: email
+            };
+
+            updateUserInterface();
+            closeAuthModal();
+        }
+
+        function register(name, email, password, confirmPassword) {
+            if (!name || !email || !password || !confirmPassword) {
+                showError('Por favor completa todos los campos');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showError('Las contraseñas no coinciden');
+                return;
+            }
+
+            // Simulate successful registration
+            currentUser = {
+                name: name,
+                email: email
+            };
+
+            updateUserInterface();
+            closeAuthModal();
+        }
+
+        function logout() {
+            currentUser = null;
+            updateUserInterface();
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+
+        function updateUserInterface() {
+            const userInfo = document.getElementById('userInfo');
+            const userDropdown = document.getElementById('userDropdown');
+            
+            if (currentUser) {
+                document.getElementById('userName').textContent = 'Hola, ' + currentUser.name;
+                document.getElementById('userEmail').textContent = currentUser.email;
+                userInfo.style.display = 'block';
+            } else {
+                userInfo.style.display = 'none';
+                userDropdown.classList.remove('active');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            login(email, password);
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            register(name, email, password, confirmPassword);
+        });
+
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Pedido realizado con éxito! Gracias por tu compra.');
+            cart = [];
+            showPage('home');
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.user-menu')) {
+                document.getElementById('userDropdown').classList.remove('active');
+            }
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('authModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAuthModal();
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            // This would implement mobile menu functionality
+            alert('Mobile menu functionality would be implemented here');
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
